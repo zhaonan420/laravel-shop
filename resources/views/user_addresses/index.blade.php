@@ -3,10 +3,13 @@
 
 @section('content')
     <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">收货地址列表</div>
-                <div class="panel-body">
+        <div class="col-md-10 offset-md-1">
+            <div class="card panel-default">
+                <div class="card-header">
+                    收货地址列表
+                    <a href="{{ route('user_addresses.create') }}" class="float-right">新增收货地址</a>
+                </div>
+                <div class="card-body">
                     <table class="table table-bordered table-striped">
                         <thead>
                         <tr>
