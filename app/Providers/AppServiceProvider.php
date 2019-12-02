@@ -2,10 +2,17 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Gate;
 
 class AppServiceProvider extends ServiceProvider
 {
+
+    protected $policies = [
+        'App\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+
     /**
      * Register any application services.
      *
@@ -19,6 +26,7 @@ class AppServiceProvider extends ServiceProvider
 
     }
 
+
     /**
      * Bootstrap any application services.
      *
@@ -26,6 +34,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        $this->registerPolicies();
+
+        Gate::guessPolicyNamesUsing(function ($class) {
+            return '\\App\\Policies\\' . class_basename($class) . 'Policy';
+        });
     }
 }
