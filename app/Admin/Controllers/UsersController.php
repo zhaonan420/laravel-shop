@@ -27,6 +27,8 @@ class UsersController extends AdminController
     {
         $grid = new Grid(new User);
 
+        $grid->model()->orderBy('id','desc');
+
         $grid->column('id')->sortable();
         $grid->column('name', '用户名');
         $grid->column('email', '邮箱');
@@ -38,6 +40,8 @@ class UsersController extends AdminController
         $grid->disableCreateButton();
         $grid->disableActions();
         $grid->disableBatchActions();
+
+
 
         return $grid;
     }
