@@ -10,8 +10,8 @@
                     <div class="row">
                         <form action="{{ route('products.index') }}" class="form-inline search-form">
                             <input type="text" class="form-control input-sm" name="search" placeholder="搜索">
-                            <button class="btn btn-primary btn-sm">搜索</button>
-                            <select name="order" class="form-control input-sm pull-right">
+                            <button class="form-control btn btn-primary btn-sm">搜索</button>
+                            <select name="order" class="form-control input-sm">
                                 <option value="">排序方式</option>
                                 <option value="price_asc">价格从低到高</option>
                                 <option value="price_desc">价格从高到低</option>
@@ -21,6 +21,7 @@
                                 <option value="rating_asc">评价从低到高</option>
                             </select>
                         </form>
+
                     </div>
                     <!-- 筛选组件结束 -->
 
@@ -42,10 +43,24 @@
                         @endforeach
                     </div>
 
-                    <div class="float-right">{{ $products->render() }}</div>  <!-- 只需要添加这一行 -->
+                    <div class="float-right">{{ $products->appends($filters)->render() }}</div>  <!-- 只需要添加这一行 -->
 
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('scriptsAfterJs')
+    <script>
+        var filters = {!! json_encode($filters) !!};
+        $(document).ready(function(){
+                  $('.search-form input[name=search]').val(filters.search);
+                 $('.search-form select[name=order]').val(filters.order);
+
+            $('.search-form select[name=order]').on('change', function() {
+                $('.search-form').submit();
+            });
+        });
+    </script>
 @endsection
