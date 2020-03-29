@@ -1,13 +1,12 @@
 @extends('layouts.app')
-
 @section('title', '购物车')
 
 @section('content')
     <div class="row">
-        <div class="col-lg-10 col-lg-offset-1">
-            <div class="panel panel-default">
-                <div class="panel-heading">我的购物车</div>
-                <div class="panel-body">
+        <div class="col-lg-10 offset-lg-1">
+            <div class="card">
+                <div class="card-header">我的购物车</div>
+                <div class="card-body">
                     <table class="table table-striped">
                         <thead>
                         <tr>
@@ -22,8 +21,7 @@
                         @foreach($cartItems as $item)
                             <tr data-id="{{ $item->productSku->id }}">
                                 <td>
-                                    <input type="checkbox" name="select"
-                                           value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
+                                    <input type="checkbox" name="select" value="{{ $item->productSku->id }}" {{ $item->productSku->product->on_sale ? 'checked' : 'disabled' }}>
                                 </td>
                                 <td class="product_info">
                                     <div class="preview">
@@ -43,22 +41,20 @@
                                 </td>
                                 <td><span class="price">￥{{ $item->productSku->price }}</span></td>
                                 <td>
-                                    <input type="text" class="form-control input-sm amount" @if(!$item->productSku->product->on_sale) disabled
-                                           @endif name="amount" value="{{ $item->amount }}">
+                                    <input type="text" class="form-control form-control-sm amount" @if(!$item->productSku->product->on_sale) disabled @endif name="amount" value="{{ $item->amount }}">
                                 </td>
                                 <td>
-                                    <button class="btn btn-xs btn-danger btn-remove">移除</button>
+                                    <button class="btn btn-sm btn-danger btn-remove">移除</button>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-
                     <!-- 开始 -->
                     <div>
                         <form class="form-horizontal" role="form" id="order-form">
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">选择收货地址</label>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-3 text-md-right">选择收货地址</label>
                                 <div class="col-sm-9 col-md-7">
                                     <select class="form-control" name="address">
                                         @foreach($addresses as $address)
@@ -67,21 +63,20 @@
                                     </select>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <label class="control-label col-sm-3">备注</label>
+                            <div class="form-group row">
+                                <label class="col-form-label col-sm-3 text-md-right">备注</label>
                                 <div class="col-sm-9 col-md-7">
                                     <textarea name="remark" class="form-control" rows="3"></textarea>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <div class="col-sm-offset-3 col-sm-3">
+                                <div class="offset-sm-3 col-sm-3">
                                     <button type="button" class="btn btn-primary btn-create-order">提交订单</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                     <!-- 结束 -->
-
                 </div>
             </div>
         </div>
@@ -114,8 +109,6 @@
                             })
                     });
             });
-
-
             // 监听 全选/取消全选 单选框的变更事件
             $('#select-all').change(function() {
                 // 获取单选框的选中状态
