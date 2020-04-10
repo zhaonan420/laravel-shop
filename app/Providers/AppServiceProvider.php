@@ -6,6 +6,7 @@ use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvid
 use Illuminate\Support\Facades\Gate;
 use Monolog\Logger;
 use Yansongda\Pay\Pay;
+use Elasticsearch\ClientBuilder as ESClientBuilder;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,7 +34,7 @@ class AppServiceProvider extends ServiceProvider
 
             // 判断当前项目运行环境是否为线上环境
             if (app()->environment() !== 'production') {
-                $config['mode']         = 'dev';
+                $config['mode'] = 'dev';
                 $config['log']['level'] = Logger::DEBUG;
             } else {
                 $config['log']['level'] = Logger::WARNING;
@@ -53,6 +54,14 @@ class AppServiceProvider extends ServiceProvider
             return Pay::wechat($config);
         });
 
+        $this->app->singleton('es', function () {
+            $builder = ESClientBuilder::create()->setHosts(config('database.elasticsearch.hosts'));
+            if (app()->environment() != 'production') {
+                $builder->setLogger(app('log')->driver());
+            }
+
+            return $builder;
+        });
 
     }
 

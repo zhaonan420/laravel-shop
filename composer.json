@@ -10,6 +10,7 @@
     "require": {
         "php": "^7.2",
         "ext-json": "*",
+        "elasticsearch/elasticsearch": "^7.6",
         "encore/laravel-admin": "^1.7",
         "fideloper/proxy": "^4.0",
         "jxlwqq/env-manager": "^0.1.0",
