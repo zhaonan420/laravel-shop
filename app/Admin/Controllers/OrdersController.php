@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Exceptions\InternalException;
 use App\Exceptions\InvalidRequestException;
 use App\Http\Requests\Admin\HandleRefundRequest;
 use App\Models\Order;
@@ -169,7 +170,7 @@ class OrdersController extends AdminController
         // 是否同意退款
         if ($request->input('agree')) {
             // 同意退款的逻辑这里先留空
-            // todo
+            $this->_refundOrder($order);
         } else {
             // 将拒绝退款理由放到订单的 extra 字段中
             $extra = $order->extra ?: [];
@@ -182,5 +183,35 @@ class OrdersController extends AdminController
         }
 
         return $order;
+    }
+
+    protected function _refundOrder(Order $order)
+    {
+        if ($order->payment_method == 'alipay') {
+            $refundNo = Order::getAvailableRefundNo();
+
+            $ret = app('alipay')->refund([
+                'out_trade_no' => $order->no,
+                'out_request_no' => $refundNo,
+                'refund_amount' => $order->total_amount,
+            ]);
+
+            if ($ret->sub_code) {
+                $extra = $order->extra;
+                $extra['refund_failed_code'] = $order->sub_code;
+                $order->update([
+                    'refund_no' => $refundNo,
+                    'refund_status' => Order::REFUND_STATUS_FAILED,
+                    'extra' => $extra,
+                ]);
+            } else {
+                $order->update([
+                    'refund_no' => $refundNo,
+                    'refund_status' => Order::REFUND_STATUS_SUCCESS,
+                ]);
+            }
+        } else {
+            throw new InternalException('未知订单支付方式：' . $order->payment_method);
+        }
     }
 }
