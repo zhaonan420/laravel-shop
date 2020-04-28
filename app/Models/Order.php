@@ -7,15 +7,15 @@ use Ramsey\Uuid\Uuid;
 
 class Order extends Model
 {
-    const REFUND_STATUS_PENDING    = 'pending';
-    const REFUND_STATUS_APPLIED    = 'applied';
+    const REFUND_STATUS_PENDING = 'pending';
+    const REFUND_STATUS_APPLIED = 'applied';
     const REFUND_STATUS_PROCESSING = 'processing';
-    const REFUND_STATUS_SUCCESS    = 'success';
-    const REFUND_STATUS_FAILED     = 'failed';
+    const REFUND_STATUS_SUCCESS = 'success';
+    const REFUND_STATUS_FAILED = 'failed';
 
-    const SHIP_STATUS_PENDING   = 'pending';
+    const SHIP_STATUS_PENDING = 'pending';
     const SHIP_STATUS_DELIVERED = 'delivered';
-    const SHIP_STATUS_RECEIVED  = 'received';
+    const SHIP_STATUS_RECEIVED = 'received';
 
     public static $refundStatusMap = [
         self::REFUND_STATUS_PENDING => '未退款',
@@ -67,15 +67,21 @@ class Order extends Model
         // 监听模型创建事件，在写入数据库之前触发
         static::creating(function ($model) {
             // 如果模型的 no 字段为空
-            if (! $model->no) {
+            if (!$model->no) {
                 // 调用 findAvailableNo 生成订单流水号
                 $model->no = static::findAvailableNo();
                 // 如果生成失败，则终止创建订单
-                if (! $model->no) {
+                if (!$model->no) {
                     return false;
                 }
             }
         });
+    }
+
+
+    public function items()
+    {
+        return $this->hasMany(OrderItem::class);
     }
 
 
@@ -85,9 +91,9 @@ class Order extends Model
     }
 
 
-    public function items()
+    public function couponCode()
     {
-        return $this->hasMany(OrderItem::class);
+        return $this->belongsTo(CouponCode::class);
     }
 
 
@@ -99,7 +105,7 @@ class Order extends Model
             // 随机生成 6 位的数字
             $no = $prefix . str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
             // 判断是否已经存在
-            if (! static::query()->where('no', $no)->exists()) {
+            if (!static::query()->where('no', $no)->exists()) {
                 return $no;
             }
         }
