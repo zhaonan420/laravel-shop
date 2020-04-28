@@ -7,6 +7,7 @@ use App\Models\OrderItem;
 use App\Models\Product;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class ProductsController extends Controller
 {
