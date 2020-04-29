@@ -1,6 +1,6 @@
 -- MySQL dump 10.13  Distrib 5.7.24, for Linux (x86_64)
 --
--- Host: localhost    Database: laravel-shop
+-- Host: 192.168.10.10    Database: laravel-shop
 -- ------------------------------------------------------
 -- Server version	5.7.24-0ubuntu0.18.04.1
 
@@ -21,7 +21,7 @@
 
 LOCK TABLES `admin_menu` WRITE;
 /*!40000 ALTER TABLE `admin_menu` DISABLE KEYS */;
-INSERT INTO `admin_menu` VALUES (1,0,1,'首页','fa-bar-chart','/',NULL,NULL,'2019-12-02 16:37:36'),(2,0,6,'系统管理','fa-tasks',NULL,NULL,NULL,'2020-04-28 11:30:48'),(3,2,7,'管理员','fa-users','auth/users',NULL,NULL,'2020-04-28 11:30:48'),(4,2,8,'角色','fa-user','auth/roles',NULL,NULL,'2020-04-28 11:30:48'),(5,2,9,'权限','fa-ban','auth/permissions',NULL,NULL,'2020-04-28 11:30:48'),(6,2,10,'菜单','fa-bars','auth/menu',NULL,NULL,'2020-04-28 11:30:48'),(7,2,11,'系统日志','fa-history','auth/logs',NULL,NULL,'2020-04-28 11:30:48'),(8,0,2,'用户列表','fa-users','/users',NULL,'2019-12-02 17:23:48','2019-12-02 17:25:10'),(9,2,12,'系统工具','fa-gears',NULL,NULL,'2019-12-02 17:48:30','2020-04-28 11:30:48'),(10,9,13,'Scaffold','fa-keyboard-o','helpers/scaffold',NULL,'2019-12-02 17:48:30','2020-04-28 11:30:48'),(11,9,14,'Database terminal','fa-database','helpers/terminal/database',NULL,'2019-12-02 17:48:30','2020-04-28 11:30:48'),(12,9,15,'Laravel artisan','fa-terminal','helpers/terminal/artisan',NULL,'2019-12-02 17:48:30','2020-04-28 11:30:48'),(13,9,16,'Routes','fa-list-alt','helpers/routes',NULL,'2019-12-02 17:48:30','2020-04-28 11:30:48'),(14,9,17,'Redis manager','fa-database','redis',NULL,'2019-12-18 14:56:28','2020-04-28 11:30:48'),(15,9,19,'EnvManager','fa-gears','env-manager',NULL,'2019-12-18 14:59:26','2020-04-28 11:30:48'),(16,9,18,'Log viewer','fa-database','logs',NULL,'2019-12-18 15:01:29','2020-04-28 11:30:48'),(17,0,3,'商品管理','fa-cubes','/products',NULL,'2019-12-18 15:37:41','2019-12-18 15:38:29'),(18,0,4,'订单管理','fa-rmb','/orders',NULL,'2020-04-03 15:01:54','2020-04-03 15:02:05'),(19,0,5,'优惠券管理','fa-tags','/coupon_codes',NULL,'2020-04-28 11:30:33','2020-04-28 11:30:48');
+INSERT INTO `admin_menu` VALUES (1,0,1,'首页','fa-bar-chart','/',NULL,NULL,'2019-12-02 16:37:36'),(2,0,7,'系统管理','fa-tasks',NULL,NULL,NULL,'2020-04-29 12:14:36'),(3,2,8,'管理员','fa-users','auth/users',NULL,NULL,'2020-04-29 12:14:36'),(4,2,9,'角色','fa-user','auth/roles',NULL,NULL,'2020-04-29 12:14:36'),(5,2,10,'权限','fa-ban','auth/permissions',NULL,NULL,'2020-04-29 12:14:36'),(6,2,11,'菜单','fa-bars','auth/menu',NULL,NULL,'2020-04-29 12:14:36'),(7,2,12,'系统日志','fa-history','auth/logs',NULL,NULL,'2020-04-29 12:14:36'),(8,0,2,'用户列表','fa-users','/users',NULL,'2019-12-02 17:23:48','2019-12-02 17:25:10'),(9,2,13,'系统工具','fa-gears',NULL,NULL,'2019-12-02 17:48:30','2020-04-29 12:14:36'),(10,9,14,'Scaffold','fa-keyboard-o','helpers/scaffold',NULL,'2019-12-02 17:48:30','2020-04-29 12:14:36'),(11,9,15,'Database terminal','fa-database','helpers/terminal/database',NULL,'2019-12-02 17:48:30','2020-04-29 12:14:36'),(12,9,16,'Laravel artisan','fa-terminal','helpers/terminal/artisan',NULL,'2019-12-02 17:48:30','2020-04-29 12:14:36'),(13,9,17,'Routes','fa-list-alt','helpers/routes',NULL,'2019-12-02 17:48:30','2020-04-29 12:14:36'),(14,9,18,'Redis manager','fa-database','redis',NULL,'2019-12-18 14:56:28','2020-04-29 12:14:36'),(15,9,20,'EnvManager','fa-gears','env-manager',NULL,'2019-12-18 14:59:26','2020-04-29 12:14:36'),(16,9,19,'Log viewer','fa-database','logs',NULL,'2019-12-18 15:01:29','2020-04-29 12:14:36'),(17,0,4,'商品管理','fa-cubes','/products',NULL,'2019-12-18 15:37:41','2020-04-29 12:14:36'),(18,0,5,'订单管理','fa-rmb','/orders',NULL,'2020-04-03 15:01:54','2020-04-29 12:14:36'),(19,0,6,'优惠券管理','fa-tags','/coupon_codes',NULL,'2020-04-28 11:30:33','2020-04-29 12:14:36'),(20,0,3,'类目管理','fa-bars','/categories',NULL,'2020-04-29 12:14:27','2020-04-29 12:14:36');
 /*!40000 ALTER TABLE `admin_menu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -103,4 +103,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2020-04-28  9:55:08
+-- Dump completed on 2020-04-29  5:52:22
