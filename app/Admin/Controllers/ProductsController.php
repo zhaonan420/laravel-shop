@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Models\Category;
 use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
 use Encore\Admin\Form;
@@ -29,6 +30,7 @@ class ProductsController extends AdminController
 
         $grid->column('id', 'Id')->sortable();
         $grid->column('title', '商品名称');
+        $grid->column('category.name', '类目');
         $grid->column('on_sale', '已上架')->display(function ($value) {
             return $value ? '<span class="label label-success">是</span>' : '<span class="label label-warning">否</span>';
         });
@@ -78,6 +80,13 @@ class ProductsController extends AdminController
         $form = new Form(new Product);
 
         $form->text('title', '商品名称')->required()->rules('required');
+        $form->select('category_id', '类目')->options(function ($id) {
+            $category = Category::find($id);
+            if ($category) {
+                return [$category->id => $category->full_name];
+            }
+        })->ajax('/admin/api/categories?is_directory=0');
+
         $form->image('image', '封面图片')->required()->rules('required|image');
 
         // 创建一个富文本编辑器
