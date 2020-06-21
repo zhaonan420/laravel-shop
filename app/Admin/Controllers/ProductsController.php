@@ -2,6 +2,7 @@
 
 namespace App\Admin\Controllers;
 
+use App\Jobs\SyncOneProductToES;
 use App\Models\Category;
 use App\Models\Product;
 use Encore\Admin\Controllers\AdminController;
@@ -11,6 +12,8 @@ use Encore\Admin\Show;
 
 class ProductsController extends AdminController
 {
+
+
     /**
      * Title for current resource.
      *
@@ -94,7 +97,7 @@ class ProductsController extends AdminController
         $form->quill('description', '商品描述')->required()->rules('required');
 
         // 创建一组单选框
-        $form->radio('on_sale', '上架')->options(['1' => '是', '0'=> '否'])->default('1');
+        $form->radio('on_sale', '上架')->options(['1' => '是', '0' => '否'])->default('1');
 
         // 直接添加一对多的关联模型
         $form->hasMany('skus', 'SKU 列表', function (Form\NestedForm $form) {
@@ -113,6 +116,11 @@ class ProductsController extends AdminController
         // 定义事件回调，当模型即将保存时会触发这个回调
         $form->saving(function (Form $form) {
             $form->model()->price = collect($form->input('skus'))->where(Form::REMOVE_FLAG_NAME, 0)->min('price') ?: 0;
+        });
+
+        $form->saved(function (Form $form) {
+            $product = $form->model();
+            dispatch(new SyncOneProductToES($product));
         });
 
 
