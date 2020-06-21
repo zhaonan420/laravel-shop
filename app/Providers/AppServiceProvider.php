@@ -60,7 +60,7 @@ class AppServiceProvider extends ServiceProvider
                 $builder->setLogger(app('log')->driver());
             }
 
-            return $builder;
+            return $builder->build();
         });
 
     }

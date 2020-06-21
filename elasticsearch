@@ -1,0 +1,32 @@
+systemctl restart elasticsearch.service
+
+//创建索引
+curl -XPUT http://localhost:9200/test_index
+
+
+
+//创建属性
+curl -H'Content-Type: application/json' -XPUT http://localhost:9200/test_index/_mapping/ -d'{
+  "properties": {
+    "title": { "type": "text", "analyzer": "ik_smart" }, 
+    "description": { "type": "text", "analyzer": "ik_smart" },
+    "price": { "type": "scaled_float", "scaling_factor": 100 }
+  }
+}'
+
+//插入数据
+curl -H'Content-Type: application/json' -XPUT http://localhost:9200/test_index/_doc/1?pretty -d'{
+    "title": "iPhone X",
+    "description": "新品到货",
+    "price": 8848
+}'
+
+curl -H'Content-Type: application/json' -XPUT http://localhost:9200/test_index/_doc/2?pretty -d'{
+    "title": "OPPO R15",
+    "description": "新品到货",
+    "price": 2000
+}'
+
+
+//读取数据
+ curl http://localhost:9200/test_index/_doc/1?pretty
