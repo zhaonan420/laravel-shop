@@ -80,6 +80,7 @@ class ProductsController extends AdminController
         $form = new Form(new Product);
 
         $form->text('title', '商品名称')->required()->rules('required');
+        $form->text('long_title', '商品长标题')->required()->rules('required');
         $form->select('category_id', '类目')->options(function ($id) {
             $category = Category::find($id);
             if ($category) {
